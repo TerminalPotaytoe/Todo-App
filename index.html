@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Todo App</title>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <h1>Task Manager</h1>
+        <nav>
+          <ul>
+            <li><button class="newtask btn">Add Task</button></li>
+            <li><button class="newproject btn">Add Project</button></li>
+          </ul>
+        </nav>
+      </aside> 
+
+      <main class="main">
+        <h1>Tasks</h1>
+        <hr>
+        <div class="tasks">
+          
+          <!-- Static Example Card -->
+          
+
+        </div>
+      </main>
+    </div>
+    
+
+    <div class="modal-overlay hidden" id="taskModal">
+      <div class="modal-content">
+      <h2>Create New Task</h2>
+      
+      <form id="taskForm">
+        
+        <!-- 1. TITLE -->
+        <div class="form-group">
+          <label for="title">Task Title</label>
+          <input type="text" id="title" placeholder="e.g., Finish CSS layout" required>
+        </div>
+
+        <!-- 2. DUE DATE -->
+        <div class="form-group">
+          <label for="dueDate">Due Date</label>
+          <input type="date" id="dueDate" required>
+        </div>
+
+        <!-- 3. DESCRIPTION -->
+        <div class="form-group">
+          <label for="desc">Description</label>
+          <textarea id="desc" rows="3" placeholder="Add a short description..." required></textarea>
+        </div>
+
+        <!-- 4. STATUS -->
+        <div class="form-group checkbox-group">
+          <label for="done">Mark as Done?</label>
+          <input type="checkbox" id="done">
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="form-actions">
+          <button type="button" class="btn cancel-btn" id="closeModal">Cancel</button>
+          <button type="submit" class="btn submit-btn">Submit</button>
+        </div>
+
+      </form>
+    </div>
+    
+
+  </div>
+
+    
+    <!-- TEMPLATE -->
+    <template id="template">
+      <div class="card">
+        <img src="/src/assets/taskicon.png" alt="Task Icon" class="task-icon">
+        
+        <div class="info">
+          <span class="date">Due: Date</span>
+          <h3 class="title">Task Title</h3>
+          <p class="desc">Task Description</p>
+        </div>
+        
+        <button class="status-btn cross">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button class="deletebtn" id="deletebtn">
+          🗑️
+        </button>
+        
+      </div>
+    </template>
+
+    <script type="module" src="/src/main.js"></script>
+    
+  </body>
+</html>

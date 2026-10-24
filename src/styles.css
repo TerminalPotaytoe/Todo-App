@@ -1,0 +1,378 @@
+/* =========================================
+   1. VARIABLES (Change colors easily here)
+   ========================================= */
+:root {
+  --bg-main: #0f172a;        /* Very dark blue */
+  --bg-sidebar: #1e293b;     /* Slightly lighter dark blue */
+  --bg-hover: #334155;       /* Hover state for buttons */
+  
+  --text-main: #f8fafc;      /* Almost white */
+  --text-muted: #94a3b8;     /* Light gray for subtext */
+  
+  --accent: #3b82f6;         /* Bright blue for primary button */
+  --accent-hover: #2563eb;   /* Darker blue for hover */
+  
+  --border-color: #334155;   /* Subtle borders */
+  --radius: 2rem;             /* Rounded corners */
+}
+
+/* =========================================
+   2. RESET & BASE STYLES
+   ========================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensures padding doesn't break widths */
+  font-weight: 600;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif; /* Modern font */
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  height: 100vh; /* Full screen height */
+  overflow: hidden; /* Prevents scrolling on the body */
+}
+
+/* =========================================
+   3. MAIN LAYOUT (Flexbox)
+   ========================================= */
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+/* =========================================
+   4. SIDEBAR
+   ========================================= */
+.sidebar {
+  width: 280px; /* Fixed width */
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebar h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-main);
+}
+
+.sidebar nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Space between buttons */
+}
+
+/* =========================================
+   5. BUTTONS (Modern Styling)
+   ========================================= */
+.btn {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease; /* Smooth transition for hover */
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Primary Button (Add Task) */
+.newtask {
+  background-color: var(--accent);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39); /* Modern glow effect */
+}
+
+.newtask:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px); /* Slight lift on hover */
+}
+
+/* Secondary Button (Add Project) */
+.newproject {
+  background-color: var(--accent);
+  color: white;
+  border: 1px solid var(--border-color);
+}
+
+.newproject:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-main);
+  border-color: var(--text-muted);
+}
+
+/* =========================================
+   6. MAIN CONTENT AREA
+   ========================================= */
+.main {
+  flex: 1; /* Takes up remaining space */
+  padding: 50px;
+  overflow-y: auto; /* Allows scrolling if content gets long */
+}
+
+.main h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin-bottom: 32px;
+}
+
+/* The Card Container */
+.card {
+  display: flex;
+  align-items: center; /* Lines everything up horizontally */
+  gap: 24px;
+  background-color: #1e293b; /* Dark background */
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  margin: 0 2rem;
+}
+
+/* The Icon on the left */
+.task-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Makes it a circle */
+  background-color: #0f172a;
+  padding: 8px;
+}
+
+/* The Middle Section (Date, Title, Description) */
+.info {
+  flex: 1; /* This makes it take up the middle space */
+  display: flex;
+  flex-direction: column; /* Stacks the date, title, and desc vertically */
+  gap: 4px;
+}
+
+.date {
+  font-size: 12px;
+  color: #94a3b8; /* Light gray */
+  font-weight: bold;
+}
+
+.title {
+  font-size: 16px;
+  color: white;
+  margin: 0;
+}
+
+.desc {
+  font-size: 14px;
+  color: #94a3b8;
+  margin: 0;
+  /* This cuts off the text if it gets too long */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* The Circular Button */
+.status-btn {
+  width: 32px;           /* Small, modern size */
+  height: 32px;
+  border-radius: 50%;    /* Perfect circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  padding: 0;
+  font-size: 14px;       /* Size of the icon */
+}
+
+.status-btn:hover {
+  transform: scale(1.1);
+}
+
+/* RED CROSS STATE (Not Done) */
+.status-btn.cross {
+  background-color: rgb(239, 68, 68);
+  color: white;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.status-btn.cross:hover {
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+}
+
+/* GREEN CHECK STATE (Done) */
+.status-btn.check {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.status-btn.check:hover {
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+}
+
+/* =========================================
+   7. MODAL POPUP (Blurred & Grey)
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  
+  /* The Blur Effect */
+  background-color: rgba(15, 23, 42, 0.6); /* Dark semi-transparent */
+  backdrop-filter: blur(8px); /* This blurs everything behind the modal */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Hide the modal by default */
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-content {
+  background-color: var(--bg-sidebar);
+  padding: 32px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px; /* Keeps it from getting too wide */
+  border: 1px solid var(--border-color);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* Deep shadow for popup feel */
+}
+
+.modal-content h2 {
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Form Styling */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"] {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 12px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.form-group input:focus {
+  border-color: var(--accent);
+}
+
+/* Special styling for the Checkbox */
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-main);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent); /* Colors the checkbox blue */
+  cursor: pointer;
+}
+
+/* Form Buttons */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  justify-content: center; /* Centers text in button */
+}
+
+.cancel-btn:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-main);
+}
+
+.submit-btn {
+  background-color: var(--accent);
+  color: white;
+  justify-content: center; /* Centers text in button */
+}
+
+.submit-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Find this block and update it: */
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group textarea { /* <-- ADD THIS LINE */
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 12px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  resize: vertical; /* Lets the user make the textarea taller, but not wider */
+}
+
+.deletebtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.deletebtn:hover {
+  background-color: rgba(239, 68, 68, 0.2); /* Soft red background on hover */
+}
+
+.deletebtn:hover {
+  background-color: rgba(239, 68, 68, 0.2); /* Soft red background on hover */
+}
