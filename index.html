@@ -12,8 +12,7 @@
         <h1>Task Manager</h1>
         <nav>
           <ul>
-            <li><button class="newtask btn">Add Task</button></li>
-            <li><button class="newproject btn">Add Project</button></li>
+            <li><button class="newtask btn">Add Task</button></li> 
           </ul>
         </nav>
       </aside> 
@@ -22,46 +21,35 @@
         <h1>Tasks</h1>
         <hr>
         <div class="tasks">
-          
-          <!-- Static Example Card -->
-          
-
         </div>
       </main>
     </div>
     
-
     <div class="modal-overlay hidden" id="taskModal">
       <div class="modal-content">
       <h2>Create New Task</h2>
       
       <form id="taskForm">
-        
-        <!-- 1. TITLE -->
         <div class="form-group">
           <label for="title">Task Title</label>
           <input type="text" id="title" placeholder="e.g., Finish CSS layout" required>
         </div>
 
-        <!-- 2. DUE DATE -->
         <div class="form-group">
           <label for="dueDate">Due Date</label>
           <input type="date" id="dueDate" required>
         </div>
 
-        <!-- 3. DESCRIPTION -->
         <div class="form-group">
           <label for="desc">Description</label>
           <textarea id="desc" rows="3" placeholder="Add a short description..." required></textarea>
         </div>
 
-        <!-- 4. STATUS -->
         <div class="form-group checkbox-group">
           <label for="done">Mark as Done?</label>
           <input type="checkbox" id="done">
         </div>
 
-        <!-- BUTTONS -->
         <div class="form-actions">
           <button type="button" class="btn cancel-btn" id="closeModal">Cancel</button>
           <button type="submit" class="btn submit-btn">Submit</button>
@@ -90,6 +78,9 @@
         </button>
         <button class="deletebtn" id="deletebtn">
           🗑️
+        </button>
+        <button class="editbtn" id="editbtn">
+          ✏️
         </button>
         
       </div>

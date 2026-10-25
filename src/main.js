@@ -1,15 +1,16 @@
 import './styles.css'
 
-let tasks = [
-    {
-        title: "Walk the fish",
-        date: "09/11/1945",
-        desc: "Bring the fish to mt. everest for hiking.",
-        status: false,
-        id: "67676767",
-    }
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
-];
+function loadTasks() {
+    const raw = localStorage.getItem("tasks");
+    return raw ? JSON.parse(raw) : [];
+}
+
+let tasks = loadTasks();
+let editingId = null;
 const newTaskBtn = document.querySelector('.newtask.btn');
 const overlay = document.querySelector('.modal-overlay');
 const form = document.getElementById('taskForm');
@@ -25,6 +26,7 @@ function newTask(title, date, desc, status){
     }
 
     tasks.push(task);
+    saveTasks();
     renderTask();
 }
 
@@ -67,24 +69,73 @@ overlay.addEventListener('click', (e) => {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-
-    newTask(e.target.elements.title.value, e.target.elements.dueDate.value, e.target.elements.desc.value, e.target.elements.done.checked);
+    const data = {
+        title: e.target.elements.title.value,
+        date: e.target.elements.dueDate.value,
+        desc: e.target.elements.desc.value,
+        status: e.target.elements.done.checked,
+    };
+    
+    if (!editingId) {
+        newTask(e.target.elements.title.value, e.target.elements.dueDate.value, e.target.elements.desc.value, e.target.elements.done.checked);
+        
+    }
+    else if (editingId) {
+        const task = tasks.find(t => t.id === editingId);
+        if (!task) return;
+        Object.assign(task, data);
+        editingId = null;
+        renderTask();
+    }
+    saveTasks();
     form.reset();
     overlay.classList.add('hidden');
+    
 })
 
 const tasksContainer = document.querySelector('.tasks');
 
+
 tasksContainer.addEventListener('click', (e) => {
-    const deleteBtn = e.target.closest('.deletebtn');
-    if (!deleteBtn) return;
-    const cardEl = deleteBtn.closest('.card');
-    const taskId = cardEl.dataset.id;        
+    const cardEl = e.target.closest('.card');
+    if (!cardEl) return; //-> exit lor
 
-    tasks = tasks.filter(t => t.id !== taskId);
-    cardEl.remove();
+    const taskId = cardEl.dataset.id;
+
+    // ---DELETE CARD---
+    if (e.target.closest('.deletebtn')) {
+        tasks = tasks.filter(t => t.id !== taskId);
+        
+        cardEl.remove();
+        saveTasks();
+        return;
+    }
+
+    // ---- EDIT CARD ----
+    if (e.target.closest('.editbtn')) {
+        const task = tasks.find(t => t.id === taskId);
+        if (!task) return;
+
+        form.elements.title.value = task.title;
+        form.elements.dueDate.value = task.date;
+        form.elements.desc.value = task.desc;
+        form.elements.done.checked = task.status;
+        overlay.classList.remove('hidden');
+        editingId = taskId;
+        saveTasks();
+        return;
+    }
+
+    if (e.target.closest('.status-btn')) {
+        const task = tasks.find(t => t.id === taskId);
+    if (!task) return;
+
+    task.status = !task.status;
+    saveTasks();
+    renderTask();
+    return;
+    }
 });
-
 
 renderTask()
 

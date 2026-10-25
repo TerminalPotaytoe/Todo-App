@@ -376,3 +376,21 @@ hr {
 .deletebtn:hover {
   background-color: rgba(239, 68, 68, 0.2); /* Soft red background on hover */
 }
+
+/* Edit button (pencil) */
+.editbtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s, transform 0.2s;
+  color: var(--text-muted);
+}
+
+.editbtn:hover {
+  background-color: rgba(59, 130, 246, 0.15); /* soft blue */
+  color: var(--accent);
+  transform: scale(1.1);
+}
